@@ -25,10 +25,6 @@ JUNIT_PATH=""
 ABS_JUNIT_PATH=""
 
 if [ "${USER_ARGS[0]:-}" = "run" ]; then
-  # Detect --reporter-junit <path> or --reporter-junit=<path>. We only care
-  # about JUnit because that's what the parser reads to compute passed/failed/
-  # total/duration-ms. JSON and HTML reporters are pure CLI pass-through —
-  # users add those flags themselves if they want those files.
   i=0
   while [ "${i}" -lt "${#USER_ARGS[@]}" ]; do
     arg="${USER_ARGS[${i}]}"
@@ -52,7 +48,6 @@ if [ "${USER_ARGS[0]:-}" = "run" ]; then
 
   mkdir -p "$(dirname "${JUNIT_PATH}")"
 
-  # Absolute path so the next step (which may run in a different cwd) can find it.
   ABS_JUNIT_PATH="$(cd "$(dirname "${JUNIT_PATH}")" && pwd)/$(basename "${JUNIT_PATH}")"
 fi
 
